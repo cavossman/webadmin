@@ -9,11 +9,10 @@ var PoemSchema = new Schema({
   },
   body: {
     type: String,
-    required: 'Latitude coordinate is required'
+    required: 'Body is required'
   },
   featured: {
-    type: Boolean,
-    required: 'Number of floors is required'
+    type: Boolean
   },
   created_date: {
     type: Date,

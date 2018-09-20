@@ -13,8 +13,9 @@ exports.list_all_poems = function(req, res) {
     });
 };
 
+// should adjust cors
 exports.write_a_poem = function(req, res) {
-    postCORS(res);
+    justWorkCORS(res);
     var new_poem = new Poem(req.body);
     new_poem.save(function(err, poem) {
         if (err) res.send(err.name);
@@ -61,4 +62,17 @@ var postCORS = function (res) {
     res.setHeader('Access-Control-Request-Method', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST');
     res.setHeader('Access-Control-Allow-Headers', '*');
+}
+
+var putCORS = function (res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'PUT');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+}
+var justWorkCORS = function (res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
 }

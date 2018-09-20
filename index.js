@@ -3,7 +3,8 @@ var express = require('express'),
     app = express(),
     port = process.env.PORT || 8080,
     mongoose = require('mongoose'),
-    Poem = require('./api/models/PoemModel')
+    Poem = require('./api/models/PoemModel'),
+    User = require('./api/models/UserModel'),
     bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
