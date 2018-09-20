@@ -5,7 +5,6 @@ var mongoose = require('mongoose'),
 mongoose.set('debug', true);
 
 exports.list_all_poems = function(req, res) {
-    console.log(req.user);
     getCORS(res);
     Poem.find({}, function(err, poem) {
         if (err) res.send(err);
