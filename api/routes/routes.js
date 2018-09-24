@@ -28,5 +28,6 @@ module.exports = function(app) {
   app.route(BASE_URL + '/poems/:poem_id')
     .put(poem.add)
     .get(poem.get)
+    .delete(poem.remove)
     .options(poem.remove);
 }

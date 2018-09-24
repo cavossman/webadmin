@@ -49,6 +49,7 @@ exports.remove = function(req, res) {
     });
 };
 
+// change 'Access-Control-Allow-Origin' to URL of application when live
 let applyCORS = (res, httpReq) => {
     console.log(httpReq);
     res.setHeader('Access-Control-Allow-Origin', '*');
