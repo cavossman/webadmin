@@ -4,9 +4,8 @@ var mongoose = require('mongoose'),
 
 mongoose.set('debug', true);
 
-exports.list_all_poems = function(req, res) {
-    console.log(req.user);
-    getCORS(res);
+exports.getAll = function(req, res) {
+    applyCORS(res, 'GET');
     Poem.find({}, function(err, poem) {
         if (err) res.send(err);
         res.json(poem);
@@ -14,8 +13,8 @@ exports.list_all_poems = function(req, res) {
 };
 
 // should adjust cors
-exports.write_a_poem = function(req, res) {
-    justWorkCORS(res);
+exports.add = function(req, res) {
+    applyCORS(res, 'POST');
     var new_poem = new Poem(req.body);
     new_poem.save(function(err, poem) {
         if (err) res.send(err.name);
@@ -24,8 +23,8 @@ exports.write_a_poem = function(req, res) {
 };
 
 
-exports.read_a_poem = function(req, res) {
-    getCORS(res);
+exports.get = function(req, res) {
+    applyCORS(res, 'GET');
     Poem.findById(req.params.poem_id, function(err, poem) {
         if (err) res.send(err);
         res.json(poem);
@@ -33,8 +32,8 @@ exports.read_a_poem = function(req, res) {
 };
 
 
-exports.update_a_poem = function(req, res) {
-    postCORS(res);
+exports.update = function(req, res) {
+    applyCORS(res, 'PUT');
     Poem.update({_id: req.params.poem_id}, req.body, {overwrite: true}, function(err, poem) {
         if (err) res.send(err);
         res.json(poem);
@@ -42,37 +41,18 @@ exports.update_a_poem = function(req, res) {
 };
 
 
-exports.delete_a_poem = function(req, res) {
-    postCORS(res);
-    Poem.remove({ _id: req.params.poem_id }, function(err, poem) {
+exports.remove = function(req, res) {
+    applyCORS(res, 'DELETE');
+    Poem.deleteOne({ _id: req.params.poem_id }, function(err, poem) {
         if (err) res.send(err);
         res.json({ message: 'Poem successfully deleted' });
     });
 };
 
-var getCORS = function (res) {
+let applyCORS = (res, httpReq) => {
+    console.log(httpReq);
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Request-Method', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
+    res.setHeader('Access-Control-Allow-Methods', httpReq);
     res.setHeader('Access-Control-Allow-Headers', '*');
-}
-
-var postCORS = function (res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Request-Method', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-}
-
-var putCORS = function (res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Request-Method', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'PUT');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-}
-var justWorkCORS = function (res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Request-Method', '*');
-    res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
 }

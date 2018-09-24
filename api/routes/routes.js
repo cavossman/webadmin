@@ -10,19 +10,23 @@ module.exports = function(app) {
   app.route('/user/add')
     .get(user.createUser);
 
-  app.route('loggedIn')
+  app.route('/loggedIn')
     .get(user.checkIfLogged);
 
   /* poems */
   //should adjust route - don't need all options for this endpoint
   app.route(BASE_URL + '/poems')
-    .get(poem.list_all_poems)
-    .post(poem.write_a_poem)
-    .put(poem.write_a_poem)
-    .options(poem.write_a_poem);
+    .get(poem.getAll)
+    .post(poem.add)
+    .put(poem.add)
+    .options(poem.add);
+
+  // app.all(BASE_URL + '/poems/:poem_id', (req, res, next) => {
+  //   console.log(req);
+  // });
 
   app.route(BASE_URL + '/poems/:poem_id')
-    .put(poem.update_a_poem)
-    .get(poem.read_a_poem)
-    .delete(poem.delete_a_poem);
+    .put(poem.add)
+    .get(poem.get)
+    .options(poem.remove);
 }
