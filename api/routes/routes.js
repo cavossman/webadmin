@@ -3,31 +3,38 @@ var path = require('path');
 module.exports = function(app) {
   const BASE_URL = '/api/v1';
   var poem = require('../controllers/PoemController'),
-      user = require('../controllers/UserController');
+      user = require('../controllers/UserController'),
+      music = require('../controllers/MusicController');
 
   app.route('/user/login')
     .get(user.login);
   app.route('/user/add')
     .get(user.createUser);
-
-  app.route('/loggedIn')
+  app.route('/user/loggedIn')
     .get(user.checkIfLogged);
 
   /* poems */
-  //should adjust route - don't need all options for this endpoint
   app.route(BASE_URL + '/poems')
     .get(poem.getAll)
     .post(poem.add)
-    .put(poem.add)
     .options(poem.add);
 
-  // app.all(BASE_URL + '/poems/:poem_id', (req, res, next) => {
-  //   console.log(req);
-  // });
-
   app.route(BASE_URL + '/poems/:poem_id')
-    .put(poem.add)
     .get(poem.get)
+    .put(poem.edit)
     .delete(poem.remove)
     .options(poem.remove);
+
+  /* music */
+  app.route(BASE_URL + '/music')
+    .get(music.getAll)
+    .post(music.add)
+    .options(music.add);
+
+  app.route(BASE_URL + '/music/:music_id')
+    .get(music.get)
+    .put(music.edit)
+    .delete(music.delete)
+    .options(music.delete);
+  
 }
