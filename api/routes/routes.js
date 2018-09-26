@@ -8,8 +8,8 @@ module.exports = function(app) {
 
   app.route('/user/login')
     .get(user.login);
-  app.route('/user/add')
-    .get(user.createUser);
+  // app.route('/user/add')
+  //   .get(user.createUser);
   app.route('/user/loggedIn')
     .get(user.checkIfLogged);
 

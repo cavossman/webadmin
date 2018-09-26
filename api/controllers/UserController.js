@@ -49,7 +49,7 @@ let handleExistingUser = (req, res) => {
 
 // change 'Access-Control-Allow-Origin' to URL of application when live
 let applyCORS = (res, httpReq) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'https://allaboutjv.com');
     res.setHeader('Access-Control-Request-Method', '*');
     res.setHeader('Access-Control-Allow-Methods', httpReq);
     res.setHeader('Access-Control-Allow-Headers', '*');
