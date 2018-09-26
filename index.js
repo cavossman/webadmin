@@ -7,7 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     fs = require('fs'),
     util = require('util'),
-    log_file = fs.createWriteStream(__dirname + '/logs/output.log', {flags : 'w'}),
+    log_file = fs.createWriteStream('/var/www/logs/output.log', {flags : 'w'}),
     log_stdout = process.stdout,
 
     Poem = require('./api/models/PoemModel'),
